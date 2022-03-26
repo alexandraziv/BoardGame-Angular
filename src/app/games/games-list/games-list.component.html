@@ -1,0 +1,46 @@
+<form>
+    <!--<div class="col form-inline">
+        <app-search [categories]="categories" (search)="onSearch($event)" (change)="getAllDonors()"></app-search>
+    </div>-->
+  <!--- <div class="form-group-row">
+    <ngb-pagination
+    [(page)]="params.page"
+    [pageSize]="params.pageSize"
+    [collectionSize]="gameCount.count"
+    (pageChange)="getCount()">
+</ngb-pagination>
+    </div>-->
+
+    <!--BROJCANA VREDNOST INPUTA SA FILTERIMA ako koristis filter, moras uz form-check-->
+    <div class="col form-check form-inline">
+        <label for="rating" class="form-check-label"> Rating</label>
+        <div class="form-inline">&nbsp;&nbsp;
+            <input type="number" name="minRating" id="minRating" class="form-control" placeholder="min"
+            [(ngModel)]="params.filter.minRating" (change)="getGames()">
+            <input type="number" name="max" id="max" class="form-control" placeholder="max"
+            [(ngModel)]="params.filter.maxRating" (change)="getGames()">
+        </div>
+    </div>
+    <!--select filtriranje po kategorijama-->
+    <div class=" col form-check form-inline">
+        <label for="category" class="form-check-label">Category</label>&nbsp;&nbsp;
+        <select name="category" id="category" class="form-select" aria-label="Default select example"  [(ngModel)]="params.filter.categories" (change)="getGames()">
+            <option [value]="" selected>All</option>
+            <option [value]="cat" *ngFor="let cat of categories" > {{cat}}</option>
+            <!--*ngFor="let spec of specialties" [value]="spec" {{spec | titlecase}}-->
+        </select>
+    </div>
+  </form>
+  
+  <app-table [game]="games" (gameDeleted)="onGamesDeleted($event)" (sortCriteriaChanged)="onSortCriteriaChanged($event)"></app-table>
+  
+  <app-pagination
+  [page]="params.page"
+  [pageSize]="params.pageSize"
+  [collectionSize]="gameCount.count"
+  [list]="games"
+  (pageChange)="onPageChanged($event)"
+></app-pagination>
+ <!-- <div class="d-grid gap-2 col-6 mx-auto">
+    <input class="btn btn-secondary mx-auto" type="button" value="Load more" (click)="loadMore()">
+  </div>-->
